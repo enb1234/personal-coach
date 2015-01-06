@@ -1,27 +1,43 @@
 package org.brunokam.personalcoach;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
+public class ResolutionListActivity extends ActionBarActivity {
 
-    public static final int TIME_ENTRY_REQUEST_CODE = 1;
+    private ListView resolutionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_resolution_list);
+
+        this.resolutionList = (ListView) findViewById(R.id.resolution_list);
+        
+        // Creates adapter for resolution list
+        ResolutionListAdapter adapter = new ResolutionListAdapter(getApplicationContext(), new ArrayList<Resolution>());
+
+        // Attaches adapter to resolution list
+        this.resolutionList.setAdapter(adapter);
+
+        // Populates adapter
+        adapter.refresh();
+
+//        adapter.clear(); // For development purpose
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_resolution_list, menu);
         return true;
     }
 
@@ -40,9 +56,8 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Shows resolutions activity
-    public void showResolutionListActivity(View v) {
-        Intent intent = new Intent(this, ResolutionListActivity.class);
-        startActivityForResult(intent, TIME_ENTRY_REQUEST_CODE);
+    public void addNewResolution(View v) {
+        ResolutionListAdapter adapter = (ResolutionListAdapter) this.resolutionList.getAdapter();
+        adapter.add(new Resolution("Title", "Description", 1, 1));
     }
 }
