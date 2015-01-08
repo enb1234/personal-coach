@@ -8,14 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ResolutionListAdapter extends ArrayAdapter<Resolution> {
 
-    private ResolutionListDatabaseHelper dbHelper;
+    private ResolutionListDatabaseHelper mDbHelper;
 
     public ResolutionListAdapter(Context context, ArrayList<Resolution> resolutionList) {
         super(context, 0, resolutionList);
-        this.dbHelper = new ResolutionListDatabaseHelper(context);
+        this.mDbHelper = new ResolutionListDatabaseHelper(context);
     }
 
     @Override
@@ -23,30 +24,40 @@ public class ResolutionListAdapter extends ArrayAdapter<Resolution> {
         Resolution resolution = getItem(position);
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.resolution_list_item, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.list_item_resolution, parent, false);
         }
 
-        TextView titleView = (TextView) view.findViewById(R.id.title);
+        // Gets upcoming summary
+        int upcomingSummaryTime = resolution.getUpcomingSummaryTime();
+        String upcomingSummaryDate = Utils.formatDate(new Date(upcomingSummaryTime * 1000L));
+
+        TextView titleView = (TextView) view.findViewById(R.id.text_view_title);
+        TextView descriptionView = (TextView) view.findViewById(R.id.text_view_description);
+        TextView difficultyView = (TextView) view.findViewById(R.id.text_view_difficulty_value);
+        TextView upcomingSummaryView = (TextView) view.findViewById(R.id.text_view_upcoming_summary_value);
 
         titleView.setText(resolution.getTitle());
+        descriptionView.setText(resolution.getDescription());
+        difficultyView.setText(Integer.toString(resolution.getDifficulty()));
+        upcomingSummaryView.setText(upcomingSummaryDate);
 
         return view;
     }
     
     @Override
     public void add(Resolution resolution) {
-        this.dbHelper.set(resolution);
+        this.mDbHelper.set(resolution);
         super.add(resolution);
     }
 
     @Override
     public void clear() {
-        this.dbHelper.clear();
+        this.mDbHelper.clear();
         super.clear();
     }
 
     public void refresh() {
-        ArrayList<Resolution> resolutions = this.dbHelper.all();
+        ArrayList<Resolution> resolutions = this.mDbHelper.all();
         this.addAll(resolutions);
     }
 }

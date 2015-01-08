@@ -9,66 +9,98 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class ResolutionListDatabaseHelper {
-    private static String dbName = "ResolutionList";
-    private static int dbVersion = 1;
-    private static String tableName = "ResolutionList";
+    private static String mDbName = "ResolutionList";
+    private static int mDbVersion = 2;
+    private static String mTableName = "ResolutionList";
 
-    private static String labelID = "_id";
-    private static String labelTitle = "Title";
-    private static String labelDescription = "Description";
-    private static String labelDifficulty = "Difficulty";
-    private static String labelInterval = "Interval";
+    // Label names
+    private static String mLabelID = "_id";
+    private static String mLabelTitle = "Title";
+    private static String mLabelDescription = "Description";
+    private static String mLabelDifficulty = "Difficulty";
+    private static String mLabelInterval = "Interval";
+    private static String mLabelStartTime = "StartTime";
+    private static String mLabelLastSummaryTime = "LastSummaryTime";
 
-    String dbCreationQuery = "CREATE TABLE " + tableName
+    String mDbCreationQuery = "CREATE TABLE " + mTableName
         + "("
-        + labelID + " INTEGER PRIMARY KEY,"
-        + labelTitle + " TEXT,"
-        + labelDescription + " TEXT,"
-        + labelDifficulty + " INTEGER,"
-        + labelInterval + " INTEGER"
+        + mLabelID + " INTEGER PRIMARY KEY,"
+        + mLabelTitle + " TEXT,"
+        + mLabelDescription + " TEXT,"
+        + mLabelDifficulty + " INTEGER,"
+        + mLabelInterval + " INTEGER,"
+        + mLabelStartTime + " INTEGER,"
+        + mLabelLastSummaryTime + " INTEGER"
         + ")";
-    String dbDroppingQuery = "DROP TABLE IF EXISTS " + tableName;
+    String mDbDroppingQuery = "DROP TABLE IF EXISTS " + mTableName;
 
-    private DatabaseOpenHelper dbHelper;
-    private SQLiteDatabase db;
+    private DatabaseOpenHelper mDbHelper;
+    private SQLiteDatabase mDb;
 
     public ResolutionListDatabaseHelper(Context context) {
-        this.dbHelper = new DatabaseOpenHelper(context);
-        this.db = this.dbHelper.getWritableDatabase();
+        this.mDbHelper = new DatabaseOpenHelper(context);
+        this.mDb = this.mDbHelper.getWritableDatabase();
+    }
+
+    private class DatabaseOpenHelper extends SQLiteOpenHelper {
+        public DatabaseOpenHelper(Context context) {
+            super(context, mDbName, null, mDbVersion);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(mDbCreationQuery);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL(mDbDroppingQuery);
+            db.execSQL(mDbCreationQuery);
+        }
+
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL(mDbDroppingQuery);
+            db.execSQL(mDbCreationQuery);
+        }
     }
 
     public ArrayList<Resolution> all() {
-        String query = "SELECT * FROM " + tableName;
-        Cursor result = this.db.rawQuery(query, null);
+        String query = "SELECT * FROM " + mTableName;
+        Cursor result = this.mDb.rawQuery(query, null);
 
         ArrayList<Resolution> resolutionList = new ArrayList<Resolution>();
         String title, description;
-        int difficulty, interval;
+        int difficulty, interval, startTime, lastSummaryTime;
 
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            title = result.getString(result.getColumnIndex(labelTitle));
-            description = result.getString(result.getColumnIndex(labelDescription));
-            difficulty = result.getInt(result.getColumnIndex(labelDifficulty));
-            interval = result.getInt(result.getColumnIndex(labelInterval));
+            title = result.getString(result.getColumnIndex(mLabelTitle));
+            description = result.getString(result.getColumnIndex(mLabelDescription));
+            difficulty = result.getInt(result.getColumnIndex(mLabelDifficulty));
+            interval = result.getInt(result.getColumnIndex(mLabelInterval));
+            startTime = result.getInt(result.getColumnIndex(mLabelStartTime));
+            lastSummaryTime = result.getInt(result.getColumnIndex(mLabelLastSummaryTime));
 
-            resolutionList.add(new Resolution(title, description, difficulty, interval));
+            resolutionList.add(new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime));
         }
 
         return resolutionList;
     }
 
     public Resolution get(String ID) {
-        String query = "SELECT * FROM " + tableName + " WHERE _id = ?";
-        Cursor result = this.db.rawQuery(query, new String[] { ID });
+        String query = "SELECT * FROM " + mTableName + " WHERE _id = ?";
+        Cursor result = this.mDb.rawQuery(query, new String[] { ID });
         result.moveToFirst();
 
         if (!result.isAfterLast()) {
-            String title = result.getString(result.getColumnIndex(labelTitle));
-            String description = result.getString(result.getColumnIndex(labelDescription));
-            int difficulty = result.getInt(result.getColumnIndex(labelDifficulty));
-            int interval = result.getInt(result.getColumnIndex(labelInterval));
+            String title = result.getString(result.getColumnIndex(mLabelTitle));
+            String description = result.getString(result.getColumnIndex(mLabelDescription));
+            int difficulty = result.getInt(result.getColumnIndex(mLabelDifficulty));
+            int interval = result.getInt(result.getColumnIndex(mLabelInterval));
+            int startTime = result.getInt(result.getColumnIndex(mLabelStartTime));
+            int lastSummaryTime = result.getInt(result.getColumnIndex(mLabelLastSummaryTime));
 
-            return new Resolution(title, description, difficulty, interval);
+            return new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime);
         }
 
         return null;
@@ -76,43 +108,21 @@ public class ResolutionListDatabaseHelper {
 
     public void set(Resolution resolution) {
         ContentValues values = new ContentValues();
-        values.put(labelTitle, resolution.getTitle());
-        values.put(labelDescription, resolution.getDescription());
-        values.put(labelDifficulty, resolution.getDifficulty());
-        values.put(labelInterval, resolution.getInterval());
+        values.put(mLabelTitle, resolution.getTitle());
+        values.put(mLabelDescription, resolution.getDescription());
+        values.put(mLabelDifficulty, resolution.getDifficulty());
+        values.put(mLabelInterval, resolution.getInterval());
 
-        this.db.insert(tableName, null, values);
+        this.mDb.insert(mTableName, null, values);
     }
 
     public void delete(String ID) {
-        String query = "DELETE FROM " + tableName + " WHERE _id = ?";
-        this.db.rawQuery(query, new String[] { ID });
+        String query = "DELETE FROM " + mTableName + " WHERE _id = ?";
+        this.mDb.rawQuery(query, new String[]{ID});
     }
 
     public void clear() {
-        this.db.delete(tableName, null, null);
+        this.mDb.delete(mTableName, null, null);
     }
 
-    private class DatabaseOpenHelper extends SQLiteOpenHelper {
-        public DatabaseOpenHelper(Context context) {
-            super(context, dbName, null, dbVersion);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(dbCreationQuery);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL(dbDroppingQuery);
-            db.execSQL(dbCreationQuery);
-        }
-
-        @Override
-        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL(dbDroppingQuery);
-            db.execSQL(dbCreationQuery);
-        }
-    }
 }

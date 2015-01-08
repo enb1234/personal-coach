@@ -4,8 +4,34 @@
     <string name="app_name">Personal Coach</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Global -->
+    <string name="button_ok">OK</string>
+    <string name="button_done">Done</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="date_format_today">today</string>
+    <string name="date_format_tomorrow">tomorrow</string>
+    <string name="date_format_week">EEEE</string>
+    <string name="date_format_long">d MMM yyyy</string>
+
+    <!-- Main activity -->
+    <string name="main_button_manage_resolutions">Manage resolutions</string>
+
+    <!-- ResolutionList activity -->
     <string name="title_activity_resolution_list">Manage resolutions</string>
-    <string name="button_manage_resolutions">Manage resolutions</string>
-    <string name="button_add_resolution">Add new resolution</string>
+    <string name="resolution_list_button_add_resolution">Add new resolution</string>
+
+    <!-- ResolutionList item -->
+    <string name="resolution_item_difficulty_label">Difficulty</string>
+    <string name="resolution_item_difficulty_ending">/10</string>
+    <string name="resolution_item_upcoming_summary_label">Upcoming summary</string>
+
+    <!-- AddResolution fragment -->
+    <string name="title_fragment_add_resolution">Add new resolution</string>
+    <string name="add_resolution_title">Title</string>
+    <string name="add_resolution_description">Description</string>
+    <string name="add_resolution_difficulty">Difficulty</string>
+    <string name="add_resolution_interval_label">Interval in days</string>
+    <string name="add_resolution_interval_text">7</string>
 
 </resources>

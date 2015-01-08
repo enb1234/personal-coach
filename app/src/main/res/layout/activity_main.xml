@@ -9,11 +9,11 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/button_manage_resolutions"
+        android:text="@string/main_button_manage_resolutions"
+        android:onClick="showResolutionListActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_manage_resolutions"
-        android:id="@+id/button_manage_resolutions"
-        android:onClick="showResolutionListActivity"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

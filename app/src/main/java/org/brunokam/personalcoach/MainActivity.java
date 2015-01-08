@@ -16,6 +16,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Utils.initialise(this);
     }
 
     @Override
@@ -45,4 +47,5 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, ResolutionListActivity.class);
         startActivityForResult(intent, TIME_ENTRY_REQUEST_CODE);
     }
+
 }

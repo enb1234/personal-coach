@@ -1,23 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="org.brunokam.personalcoach.ResolutionsActivity">
+    tools:context=".ResolutionListActivity">
 
     <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/resolution_list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp" />
 
     <Button
+        android:id="@+id/button_add_resolution"
+        android:text="@string/resolution_list_button_add_resolution"
+        android:onClick="showAddResolutionFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_add_resolution"
-        android:id="@+id/button"
-        android:onClick="addNewResolution"
         android:layout_below="@id/resolution_list"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

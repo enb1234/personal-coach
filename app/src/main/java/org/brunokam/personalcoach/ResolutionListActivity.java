@@ -1,5 +1,8 @@
 package org.brunokam.personalcoach;
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,29 +13,30 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class ResolutionListActivity extends ActionBarActivity {
+public class ResolutionListActivity extends ActionBarActivity implements AddResolutionFragment.AddResolutionFragmentListener {
 
-    private ListView resolutionList;
+    private ListView mResolutionList;
+    private boolean mIsLargeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resolution_list);
 
-        this.resolutionList = (ListView) findViewById(R.id.resolution_list);
+        this.mResolutionList = (ListView) findViewById(R.id.resolution_list);
+        this.mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
         
         // Creates adapter for resolution list
         ResolutionListAdapter adapter = new ResolutionListAdapter(getApplicationContext(), new ArrayList<Resolution>());
 
         // Attaches adapter to resolution list
-        this.resolutionList.setAdapter(adapter);
+        this.mResolutionList.setAdapter(adapter);
 
         // Populates adapter
         adapter.refresh();
 
 //        adapter.clear(); // For development purpose
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,8 +60,33 @@ public class ResolutionListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addNewResolution(View v) {
-        ResolutionListAdapter adapter = (ResolutionListAdapter) this.resolutionList.getAdapter();
-        adapter.add(new Resolution("Title", "Description", 1, 1));
+    // Called after the AddResolution fragment succeeds
+    public void onAddResolutionSuccess(DialogFragment dialog, Resolution resolution) {
+        ResolutionListAdapter adapter = (ResolutionListAdapter) this.mResolutionList.getAdapter();
+        adapter.add(resolution);
     }
+
+    // Called after the AddResolution fragment fails
+    public void onAddResolutionError(DialogFragment dialog) {
+        // TODO: Implement
+    }
+
+    public void showAddResolutionFragment(View v) {
+        FragmentManager fragmentManager = getFragmentManager();
+        AddResolutionFragment fragment = new AddResolutionFragment();
+
+        if (this.mIsLargeLayout) {
+            // The device is using a large layout, so show the fragment as a dialog
+            fragment.show(fragmentManager, "dialog");
+        } else {
+            // The device is smaller, so show the fragment fullscreen
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            // For a little polish, specify a transition animation
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            // To make it fullscreen, use the 'content' root view as the container
+            // for the fragment, which is always the root view for the activity
+            transaction.add(android.R.id.content, fragment).addToBackStack(null).commit();
+        }
+    }
+
 }

@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".AddResolutionFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_texts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp">
+
+        <EditText
+            android:id="@+id/edit_text_title"
+            android:hint="@string/add_resolution_title"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/edit_text_description"
+            android:hint="@string/add_resolution_description"
+            android:textSize="@dimen/edit_text_text_size"
+            android:inputType="textMultiLine"
+            android:minLines="@integer/add_resolution_description_min_lines"
+            android:maxLines="@integer/add_resolution_description_max_lines"
+            android:layout_below="@id/edit_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_text_title"
+            android:layout_alignStart="@+id/edit_text_title"
+            android:layout_alignRight="@id/edit_text_title"
+            android:layout_alignEnd="@id/edit_text_title"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_difficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_texts"
+        android:layout_alignLeft="@+id/layout_texts"
+        android:layout_alignStart="@+id/layout_texts"
+        android:layout_alignRight="@id/layout_texts"
+        android:layout_alignEnd="@id/layout_texts"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/text_view_difficulty"
+            android:text="@string/add_resolution_difficulty"
+            android:textSize="@dimen/text_view_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_difficulty"
+            android:max="@integer/add_resolution_difficulty_max"
+            android:progress="@integer/add_resolution_difficulty_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_difficulty"
+            android:layout_toEndOf="@id/text_view_difficulty"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_upcoming_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_difficulty"
+        android:layout_alignLeft="@+id/layout_texts"
+        android:layout_alignStart="@+id/layout_texts"
+        android:layout_alignRight="@id/layout_texts"
+        android:layout_alignEnd="@id/layout_texts"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/text_view_interval"
+            android:text="@string/add_resolution_interval_label"
+            android:textSize="@dimen/text_view_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/edit_text_interval"
+            android:inputType="numberDecimal"
+            android:text="@string/add_resolution_interval_text"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_width="@dimen/add_resolution_edit_text_interval_width"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_interval"
+            android:layout_toEndOf="@id/text_view_interval"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
+    </RelativeLayout>
+</RelativeLayout>
