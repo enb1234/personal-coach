@@ -1,16 +1,17 @@
 package org.brunokam.personalcoach;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Resolution {
+public class Resolution implements Serializable {
+
     private String mTitle;
     private String mDescription;
-    private int mDifficulty;
-    private int mInterval;
-    private int mStartTime;
-    private int mLastSummaryTime;
+    private Integer mDifficulty;
+    private Integer mInterval;
+    private Integer mStartTime;
+    private Integer mLastSummaryTime;
 
-    public Resolution(String title, String description, int difficulty, int interval, int startTime, int lastSummary) {
+    public Resolution(String title, String description, Integer difficulty, Integer interval, Integer startTime, Integer lastSummary) {
         this.mTitle = title;
         this.mDescription = description;
         this.mDifficulty = difficulty;
@@ -19,8 +20,12 @@ public class Resolution {
         this.mLastSummaryTime = lastSummary;
     }
 
-    public Resolution(String title, String description, int difficulty, int interval, int startTime) {
-        this(title, description, difficulty, interval, startTime, 0);
+    public Resolution(String title, String description, Integer difficulty, Integer interval, Integer startTime) {
+        this(title, description, difficulty, interval, startTime, null);
+    }
+
+    public Resolution(String title, String description, Integer difficulty, Integer interval) {
+        this(title, description, difficulty, interval, null, null);
     }
 
     public String getTitle() {
@@ -39,44 +44,63 @@ public class Resolution {
         this.mDescription = description;
     }
 
-    public int getDifficulty() {
+    public Integer getDifficulty() {
         return mDifficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(Integer difficulty) {
         this.mDifficulty = difficulty;
     }
 
-    public int getInterval() {
+    public Integer getInterval() {
         return mInterval;
     }
 
-    public void setInterval(int interval) {
+    public void setInterval(Integer interval) {
         this.mInterval = interval;
     }
 
-    public int getStartTime() {
+    public Integer getStartTime() {
         return mStartTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(Integer startTime) {
         this.mStartTime = startTime;
     }
 
-    public int getLastSummaryTime() {
+    public Integer getLastSummaryTime() {
         return mLastSummaryTime;
     }
 
-    public void setLastSummaryTime(int lastSummary) {
+    public void setLastSummaryTime(Integer lastSummary) {
         this.mLastSummaryTime = lastSummary;
     }
 
-    public int getUpcomingSummaryTime() {
-        int intervalSeconds = this.mInterval * 24 * 3600;
-        int currentTimestamp = (int) (System.currentTimeMillis() / 1000L);
-        int cycle = (int) Math.floor((currentTimestamp - this.mStartTime) / intervalSeconds);
-
-        int upcomingSummaryTime = this.mStartTime + intervalSeconds * (cycle + 1);
-        return upcomingSummaryTime;
+    public boolean isActive() {
+        return this.mStartTime != null && this.mStartTime != 0;
     }
+
+    public Integer getUpcomingSummaryTime() {
+        if (this.isActive()) {
+            Integer intervalSeconds = this.mInterval * 24 * 3600;
+            Integer currentTimestamp = (int) (System.currentTimeMillis() / 1000L);
+            Integer cycle = (int) Math.floor((currentTimestamp - this.mStartTime) / intervalSeconds);
+
+            return this.mStartTime + intervalSeconds * (cycle + 1);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Resolution [title=\"" + this.mTitle + "\""
+                + ", description=\"" + this.mDescription + "\""
+                + ", difficulty=" + this.mDifficulty.toString()
+                + ", interval=" + this.mInterval.toString()
+                + ", startTime=" + this.mStartTime.toString()
+                + ", lastSummaryTime=" + this.mLastSummaryTime.toString()
+                + "]";
+    }
+
 }

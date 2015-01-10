@@ -10,7 +10,7 @@
 
     <Button
         android:id="@+id/button_manage_resolutions"
-        android:text="@string/main_button_manage_resolutions"
+        android:text="@string/main_manage_resolutions_button"
         android:onClick="showResolutionListActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

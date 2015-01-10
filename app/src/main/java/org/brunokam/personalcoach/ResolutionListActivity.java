@@ -3,17 +3,22 @@ package org.brunokam.personalcoach;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
 public class ResolutionListActivity extends ActionBarActivity implements AddResolutionFragment.AddResolutionFragmentListener {
+
+    private static final String LOG_TAG = "ResolutionListActivity";
 
     private ListView mResolutionList;
     private boolean mIsLargeLayout;
@@ -26,11 +31,23 @@ public class ResolutionListActivity extends ActionBarActivity implements AddReso
         this.mResolutionList = (ListView) findViewById(R.id.resolution_list);
         this.mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
         
-        // Creates adapter for resolution list
+        // Creates adapter for the resolution list
         ResolutionListAdapter adapter = new ResolutionListAdapter(getApplicationContext(), new ArrayList<Resolution>());
 
-        // Attaches adapter to resolution list
+        // Attaches adapter to the resolution list
         this.mResolutionList.setAdapter(adapter);
+
+        // Attaches onItemClick listener to the resolution list
+        this.mResolutionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Resolution resolution = (Resolution) parent.getAdapter().getItem(position);
+
+                Intent intent = new Intent(ResolutionListActivity.this, ResolutionDetails.class);
+                intent.putExtra("resolution", resolution);
+                ResolutionListActivity.this.startActivity(intent);
+            }
+        });
 
         // Populates adapter
         adapter.refresh();

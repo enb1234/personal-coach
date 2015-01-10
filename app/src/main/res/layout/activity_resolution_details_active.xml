@@ -1,0 +1,184 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".ResolutionDetails">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_general_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="36dp">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:text="Sample title"
+            style="@style/AppTheme.ResolutionDetails.Active.TextView.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp" />
+
+        <View
+            android:id="@+id/separator"
+            android:background="@color/light_gray"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/text_view_title"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/text_view_description"
+            android:text="Sample description"
+            style="@style/AppTheme.ResolutionDetails.Active.TextView.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/separator" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_general_info"
+        android:layout_alignLeft="@id/layout_general_info"
+        android:layout_alignStart="@id/layout_general_info"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/text_view_difficulty_label"
+            android:text="@string/resolution_details_difficulty_label"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_difficulty_value"
+            android:text="4"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_difficulty_label"
+            android:layout_toEndOf="@id/text_view_difficulty_label"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp" />
+
+        <TextView
+            android:id="@+id/text_view_difficulty_ending"
+            android:text="@string/resolution_details_difficulty_ending"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/text_view_difficulty_value"
+            android:layout_toEndOf="@id/text_view_difficulty_value" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/layout_difficulty"
+        android:layout_toEndOf="@id/layout_difficulty"
+        android:layout_alignTop="@id/layout_difficulty">
+
+        <TextView
+            android:id="@+id/text_view_interval_label"
+            android:text="@string/resolution_details_interval_label"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_interval_value"
+            android:text="7"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_interval_label"
+            android:layout_toEndOf="@id/text_view_interval_label"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_interval_ending"
+            android:text="@string/resolution_details_interval_ending"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/text_view_interval_value"
+            android:layout_toEndOf="@id/text_view_interval_value" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_started"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_difficulty"
+        android:layout_alignLeft="@id/layout_difficulty"
+        android:layout_alignStart="@id/layout_difficulty"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/text_view_started_label"
+            android:text="@string/resolution_details_started_label"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_started_value"
+            android:text="Wed, 31 Dec 2014"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_started_label"
+            android:layout_toEndOf="@id/text_view_started_label" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_upcoming_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_started"
+        android:layout_alignLeft="@id/layout_started"
+        android:layout_alignStart="@id/layout_started">
+
+        <TextView
+            android:id="@+id/text_view_upcoming_summary_label"
+            android:text="@string/resolution_details_upcoming_summary_label"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_upcoming_summary_value"
+            android:text="Wed, 31 Dec 2014"
+            style="@style/AppTheme.ResolutionDetails.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_upcoming_summary_label"
+            android:layout_toEndOf="@id/text_view_upcoming_summary_label" />
+    </RelativeLayout>
+</RelativeLayout>

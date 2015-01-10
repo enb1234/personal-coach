@@ -1,8 +1,141 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> </style>
+
+    <style name="AppTheme.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.EditText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+
+    <!-- ResolutionList item -->
+    <style name="AppTheme.ResolutionItem"> </style>
+    <style name="AppTheme.ResolutionItem.Active"> </style>
+    <style name="AppTheme.ResolutionItem.Active.TextView"> </style>
+    <style name="AppTheme.ResolutionItem.Active.Attribute"> </style>
+    <style name="AppTheme.ResolutionItem.Active.Attribute.TextView"> </style>
+    <style name="AppTheme.ResolutionItem.Inactive"> </style>
+    <style name="AppTheme.ResolutionItem.Inactive.TextView"> </style>
+    <style name="AppTheme.ResolutionItem.Inactive.Attribute"> </style>
+    <style name="AppTheme.ResolutionItem.Inactive.Attribute.TextView"> </style>
+
+    <style name="AppTheme.ResolutionItem.Active.TextView.Title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Active.TextView.Description">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Active.Attribute.TextView.Label">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Active.Attribute.TextView.Value">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/cyan</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Inactive.TextView.Title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Inactive.TextView.Description">
+        <item name="android:textColor">@color/very_light_gray</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Inactive.Attribute.TextView.Label">
+        <item name="android:textColor">@color/very_light_gray</item>
+    </style>
+
+    <style name="AppTheme.ResolutionItem.Inactive.Attribute.TextView.Value">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+
+
+    <!-- AddResolution fragment -->
+    <style name="AppTheme.AddResolution"> </style>
+    <style name="AppTheme.AddResolution.EditText"> </style>
+    <style name="AppTheme.AddResolution.SeekBar"> </style>
+
+    <style name="AppTheme.AddResolution.EditText.Title" parent="AppTheme.EditText"> </style>
+
+    <style name="AppTheme.AddResolution.EditText.Description" parent="AppTheme.EditText">
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:maxLength">@integer/resolution_description_max_length</item>
+    </style>
+
+    <style name="AppTheme.AddResolution.TextView" parent="AppTheme.TextView"> </style>
+
+    <style name="AppTheme.AddResolution.SeekBar.Difficulty">
+        <item name="android:max">@integer/resolution_difficulty_max</item>
+        <item name="android:progress">5</item>
+    </style>
+
+    <style name="AppTheme.AddResolution.EditText.Interval" parent="AppTheme.EditText">
+        <item name="android:inputType">numberDecimal</item>
+    </style>
+
+
+
+    <!-- ResolutionDetails activity -->
+    <style name="AppTheme.ResolutionDetails"> </style>
+    <style name="AppTheme.ResolutionDetails.Active"> </style>
+    <style name="AppTheme.ResolutionDetails.Active.TextView"> </style>
+    <style name="AppTheme.ResolutionDetails.Active.Attribute"> </style>
+    <style name="AppTheme.ResolutionDetails.Active.Attribute.TextView"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive.TextView"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive.Attribute"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive.Attribute.TextView"> </style>
+
+    <style name="AppTheme.ResolutionDetails.Active.TextView.Title">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="AppTheme.ResolutionDetails.Active.TextView.Description" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="AppTheme.ResolutionDetails.Active.Attribute.TextView.Label" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="AppTheme.ResolutionDetails.Active.Attribute.TextView.Value">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="AppTheme.ResolutionDetails.Inactive.TextView.Title" parent="AppTheme.ResolutionDetails.Active.TextView.Title"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive.TextView.Description" parent="AppTheme.ResolutionDetails.Active.TextView.Description"> </style>
+    <style name="AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Label" parent="AppTheme.ResolutionDetails.Active.Attribute.TextView.Label"> </style>
+
+    <style name="AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Value">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
 </resources>

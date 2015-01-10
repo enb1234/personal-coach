@@ -28,14 +28,15 @@ public class AddResolutionFragment extends DialogFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     // Creates the resolution
-                    String title = ((EditText) getDialog().findViewById(R.id.edit_text_title)).getText().toString();
-                    String description = ((EditText) getDialog().findViewById(R.id.edit_text_description)).getText().toString();
-                    int difficulty = ((SeekBar) getDialog().findViewById(R.id.seek_bar_difficulty)).getProgress();
-                    int interval = Integer.parseInt(((EditText) getDialog().findViewById(R.id.edit_text_interval)).getText().toString());
-                    int startTime = (int) (System.currentTimeMillis() / 1000L);
-                    int lastSummaryTime = 0;
+                    String title, description;
+                    Integer difficulty, interval;
 
-                    Resolution resolution = new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime);
+                    title = ((EditText) getDialog().findViewById(R.id.edit_text_title)).getText().toString();
+                    description = ((EditText) getDialog().findViewById(R.id.edit_text_description)).getText().toString();
+                    difficulty = ((SeekBar) getDialog().findViewById(R.id.seek_bar_difficulty)).getProgress();
+                    interval = Integer.parseInt(((EditText) getDialog().findViewById(R.id.edit_text_interval)).getText().toString());
+
+                    Resolution resolution = new Resolution(title, description, difficulty, interval);
                     mListener.onAddResolutionSuccess(AddResolutionFragment.this, resolution);
                 }
             })

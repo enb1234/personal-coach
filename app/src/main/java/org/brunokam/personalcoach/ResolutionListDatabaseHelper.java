@@ -71,7 +71,7 @@ public class ResolutionListDatabaseHelper {
 
         ArrayList<Resolution> resolutionList = new ArrayList<Resolution>();
         String title, description;
-        int difficulty, interval, startTime, lastSummaryTime;
+        Integer difficulty, interval, startTime, lastSummaryTime;
 
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
             title = result.getString(result.getColumnIndex(mLabelTitle));
@@ -80,6 +80,14 @@ public class ResolutionListDatabaseHelper {
             interval = result.getInt(result.getColumnIndex(mLabelInterval));
             startTime = result.getInt(result.getColumnIndex(mLabelStartTime));
             lastSummaryTime = result.getInt(result.getColumnIndex(mLabelLastSummaryTime));
+
+            if (startTime == 0) {
+                startTime = null;
+            }
+
+            if (lastSummaryTime == 0) {
+                lastSummaryTime = null;
+            }
 
             resolutionList.add(new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime));
         }
@@ -93,12 +101,23 @@ public class ResolutionListDatabaseHelper {
         result.moveToFirst();
 
         if (!result.isAfterLast()) {
-            String title = result.getString(result.getColumnIndex(mLabelTitle));
-            String description = result.getString(result.getColumnIndex(mLabelDescription));
-            int difficulty = result.getInt(result.getColumnIndex(mLabelDifficulty));
-            int interval = result.getInt(result.getColumnIndex(mLabelInterval));
-            int startTime = result.getInt(result.getColumnIndex(mLabelStartTime));
-            int lastSummaryTime = result.getInt(result.getColumnIndex(mLabelLastSummaryTime));
+            String title, description;
+            Integer difficulty, interval, startTime, lastSummaryTime;
+
+            title = result.getString(result.getColumnIndex(mLabelTitle));
+            description = result.getString(result.getColumnIndex(mLabelDescription));
+            difficulty = result.getInt(result.getColumnIndex(mLabelDifficulty));
+            interval = result.getInt(result.getColumnIndex(mLabelInterval));
+            startTime = result.getInt(result.getColumnIndex(mLabelStartTime));
+            lastSummaryTime = result.getInt(result.getColumnIndex(mLabelLastSummaryTime));
+
+            if (startTime == 0) {
+                startTime = null;
+            }
+
+            if (lastSummaryTime == 0) {
+                lastSummaryTime = null;
+            }
 
             return new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime);
         }
@@ -112,6 +131,8 @@ public class ResolutionListDatabaseHelper {
         values.put(mLabelDescription, resolution.getDescription());
         values.put(mLabelDifficulty, resolution.getDifficulty());
         values.put(mLabelInterval, resolution.getInterval());
+        values.put(mLabelStartTime, resolution.getStartTime());
+        values.put(mLabelLastSummaryTime, resolution.getLastSummaryTime());
 
         this.mDb.insert(mTableName, null, values);
     }

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Global -->
     <color name="cyan">#009688</color>
     <color name="dark_gray">#333</color>
+    <color name="medium_gray">#555</color>
     <color name="light_gray">#777</color>
+    <color name="very_light_gray">#999</color>
 
 </resources>

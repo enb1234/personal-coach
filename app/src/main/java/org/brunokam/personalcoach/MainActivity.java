@@ -10,8 +10,6 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final int TIME_ENTRY_REQUEST_CODE = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +40,10 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Shows resolutions activity
+    // Shows ResolutionList activity
     public void showResolutionListActivity(View v) {
         Intent intent = new Intent(this, ResolutionListActivity.class);
-        startActivityForResult(intent, TIME_ENTRY_REQUEST_CODE);
+        startActivity(intent);
     }
 
 }

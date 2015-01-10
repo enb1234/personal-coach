@@ -33,4 +33,12 @@ public class Utils {
 
         return new SimpleDateFormat(dateFormat).format(date);
     }
+
+    public static String formatTimestamp(long timestamp) {
+        return Utils.formatDate(new Date(timestamp * 1000L));
+    }
+
+    public static String formatTimestamp(int timestamp) {
+        return Utils.formatDate(new Date((long) timestamp * 1000L));
+    }
 }

@@ -15,11 +15,11 @@
     <string name="date_format_long">d MMM yyyy</string>
 
     <!-- Main activity -->
-    <string name="main_button_manage_resolutions">Manage resolutions</string>
+    <string name="main_manage_resolutions_button">Manage resolutions</string>
 
     <!-- ResolutionList activity -->
     <string name="title_activity_resolution_list">Manage resolutions</string>
-    <string name="resolution_list_button_add_resolution">Add new resolution</string>
+    <string name="resolution_list_add_resolution_button">Add new resolution</string>
 
     <!-- ResolutionList item -->
     <string name="resolution_item_difficulty_label">Difficulty</string>
@@ -33,5 +33,14 @@
     <string name="add_resolution_difficulty">Difficulty</string>
     <string name="add_resolution_interval_label">Interval in days</string>
     <string name="add_resolution_interval_text">7</string>
+
+    <!-- ResolutionDetails activity -->
+    <string name="title_activity_resolution_details">Resolution details</string>
+    <string name="resolution_details_difficulty_label">Difficulty</string>
+    <string name="resolution_details_difficulty_ending">/10</string>
+    <string name="resolution_details_interval_label">Interval</string>
+    <string name="resolution_details_interval_ending">days</string>
+    <string name="resolution_details_started_label">Started</string>
+    <string name="resolution_details_upcoming_summary_label">Upcoming summary</string>
 
 </resources>
