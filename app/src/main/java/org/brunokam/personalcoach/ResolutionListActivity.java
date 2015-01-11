@@ -16,7 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class ResolutionListActivity extends ActionBarActivity implements AddResolutionFragment.AddResolutionFragmentListener {
+public class ResolutionListActivity extends ActionBarActivity {
 
     private static final String LOG_TAG = "ResolutionListActivity";
 
@@ -49,8 +49,7 @@ public class ResolutionListActivity extends ActionBarActivity implements AddReso
             }
         });
 
-        // Populates adapter
-        adapter.refresh();
+        getLoaderManager().initLoader(0, null, adapter);
 
 //        adapter.clear(); // For development purpose
     }
@@ -77,18 +76,7 @@ public class ResolutionListActivity extends ActionBarActivity implements AddReso
         return super.onOptionsItemSelected(item);
     }
 
-    // Called after the AddResolution fragment succeeds
-    public void onAddResolutionSuccess(DialogFragment dialog, Resolution resolution) {
-        ResolutionListAdapter adapter = (ResolutionListAdapter) this.mResolutionList.getAdapter();
-        adapter.add(resolution);
-    }
-
-    // Called after the AddResolution fragment fails
-    public void onAddResolutionError(DialogFragment dialog) {
-        // TODO: Implement
-    }
-
-    public void showAddResolutionFragment(View v) {
+    public void onAddResolutionClick(View v) {
         FragmentManager fragmentManager = getFragmentManager();
         AddResolutionFragment fragment = new AddResolutionFragment();
 

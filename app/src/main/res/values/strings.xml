@@ -42,5 +42,6 @@
     <string name="resolution_details_interval_ending">days</string>
     <string name="resolution_details_started_label">Started</string>
     <string name="resolution_details_upcoming_summary_label">Upcoming summary</string>
+    <string name="resolution_details_start_resolution">Start</string>
 
 </resources>

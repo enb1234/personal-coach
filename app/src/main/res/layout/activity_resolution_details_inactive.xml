@@ -125,6 +125,35 @@
             android:layout_toEndOf="@id/text_view_interval_value" />
     </RelativeLayout>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_difficulty"
+        android:layout_alignLeft="@id/layout_difficulty"
+        android:layout_alignStart="@id/layout_difficulty">
+
+        <Button
+            android:id="@+id/button_start_resolution"
+            android:text="@string/resolution_details_start_resolution"
+            android:onClick="onStartResolutionClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <!-- TEMPORARY BUTTON -->
+        <Button
+            android:id="@+id/button_delete_resolution"
+            android:text="Delete"
+            android:onClick="onDeleteResolutionClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button_start_resolution"
+            android:layout_toEndOf="@id/button_start_resolution"
+            android:layout_alignTop="@id/button_start_resolution" />
+    </RelativeLayout>
+
     <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_started"
         android:layout_width="wrap_content"

@@ -5,10 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class ResolutionListDatabaseHelper {
+public class ResolutionListDatabase extends Observable {
+    private static String LOG_TAG = "ResolutionListDatabase";
+
     private static String mDbName = "ResolutionList";
     private static int mDbVersion = 2;
     private static String mTableName = "ResolutionList";
@@ -22,7 +26,7 @@ public class ResolutionListDatabaseHelper {
     private static String mLabelStartTime = "StartTime";
     private static String mLabelLastSummaryTime = "LastSummaryTime";
 
-    String mDbCreationQuery = "CREATE TABLE " + mTableName
+    private static String mDbCreationQuery = "CREATE TABLE " + mTableName
         + "("
         + mLabelID + " INTEGER PRIMARY KEY,"
         + mLabelTitle + " TEXT,"
@@ -32,17 +36,13 @@ public class ResolutionListDatabaseHelper {
         + mLabelStartTime + " INTEGER,"
         + mLabelLastSummaryTime + " INTEGER"
         + ")";
-    String mDbDroppingQuery = "DROP TABLE IF EXISTS " + mTableName;
+    private static String mDbDroppingQuery = "DROP TABLE IF EXISTS " + mTableName;
 
     private DatabaseOpenHelper mDbHelper;
     private SQLiteDatabase mDb;
 
-    public ResolutionListDatabaseHelper(Context context) {
-        this.mDbHelper = new DatabaseOpenHelper(context);
-        this.mDb = this.mDbHelper.getWritableDatabase();
-    }
-
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
+
         public DatabaseOpenHelper(Context context) {
             super(context, mDbName, null, mDbVersion);
         }
@@ -63,17 +63,34 @@ public class ResolutionListDatabaseHelper {
             db.execSQL(mDbDroppingQuery);
             db.execSQL(mDbCreationQuery);
         }
+
     }
 
+    private static ResolutionListDatabase mInstance = null;
+
+    private ResolutionListDatabase(Context context) {
+        this.mDbHelper = new DatabaseOpenHelper(context);
+        this.mDb = this.mDbHelper.getWritableDatabase();
+    }
+
+    public static ResolutionListDatabase getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new ResolutionListDatabase(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
+    // Gets all resolutions from the database
     public ArrayList<Resolution> all() {
         String query = "SELECT * FROM " + mTableName;
         Cursor result = this.mDb.rawQuery(query, null);
 
         ArrayList<Resolution> resolutionList = new ArrayList<Resolution>();
         String title, description;
-        Integer difficulty, interval, startTime, lastSummaryTime;
+        Integer ID, difficulty, interval, startTime, lastSummaryTime;
 
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
+            ID = result.getInt(result.getColumnIndex(mLabelID));
             title = result.getString(result.getColumnIndex(mLabelTitle));
             description = result.getString(result.getColumnIndex(mLabelDescription));
             difficulty = result.getInt(result.getColumnIndex(mLabelDifficulty));
@@ -89,15 +106,16 @@ public class ResolutionListDatabaseHelper {
                 lastSummaryTime = null;
             }
 
-            resolutionList.add(new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime));
+            resolutionList.add(new Resolution(ID, title, description, difficulty, interval, startTime, lastSummaryTime));
         }
 
         return resolutionList;
     }
 
-    public Resolution get(String ID) {
+    // Gets resolution from the database
+    public Resolution get(Integer ID) {
         String query = "SELECT * FROM " + mTableName + " WHERE _id = ?";
-        Cursor result = this.mDb.rawQuery(query, new String[] { ID });
+        Cursor result = this.mDb.rawQuery(query, new String[] { ID.toString() });
         result.moveToFirst();
 
         if (!result.isAfterLast()) {
@@ -119,13 +137,34 @@ public class ResolutionListDatabaseHelper {
                 lastSummaryTime = null;
             }
 
-            return new Resolution(title, description, difficulty, interval, startTime, lastSummaryTime);
+            return new Resolution(ID, title, description, difficulty, interval, startTime, lastSummaryTime);
         }
 
         return null;
     }
 
-    public void set(Resolution resolution) {
+    // Adds resolution to the database
+    public Resolution add(ResolutionEntry resolutionEntry) {
+        ContentValues values = new ContentValues();
+        values.put(mLabelTitle, resolutionEntry.getTitle());
+        values.put(mLabelDescription, resolutionEntry.getDescription());
+        values.put(mLabelDifficulty, resolutionEntry.getDifficulty());
+        values.put(mLabelInterval, resolutionEntry.getInterval());
+        values.put(mLabelStartTime, resolutionEntry.getStartTime());
+        values.put(mLabelLastSummaryTime, resolutionEntry.getLastSummaryTime());
+
+        long result = this.mDb.insert(mTableName, null, values);
+
+        if (result != -1) {
+            this.notifyObservers();
+            return new Resolution((int) result, resolutionEntry);
+        } else {
+            return null;
+        }
+    }
+
+    // Updates resolution which exists in the database
+    public boolean update(Resolution resolution) {
         ContentValues values = new ContentValues();
         values.put(mLabelTitle, resolution.getTitle());
         values.put(mLabelDescription, resolution.getDescription());
@@ -134,16 +173,37 @@ public class ResolutionListDatabaseHelper {
         values.put(mLabelStartTime, resolution.getStartTime());
         values.put(mLabelLastSummaryTime, resolution.getLastSummaryTime());
 
-        this.mDb.insert(mTableName, null, values);
+        long result = this.mDb.update(mTableName, values, "_id = ?", new String[] { resolution.getID().toString() });
+
+        if (result != -1) {
+            this.notifyObservers();
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void delete(String ID) {
-        String query = "DELETE FROM " + mTableName + " WHERE _id = ?";
-        this.mDb.rawQuery(query, new String[]{ID});
+    // Deletes resolution from the database by given ID
+    public void delete(Integer ID) {
+        this.mDb.delete(mTableName, "_id = ?", new String[]{ID.toString()});
+        this.notifyObservers();
     }
 
+    // Deletes resolution from the database
+    public void delete(Resolution resolution) {
+        this.delete(resolution.getID());
+    }
+
+    // Deletes all resolutions from the database
     public void clear() {
         this.mDb.delete(mTableName, null, null);
+        this.notifyObservers();
+    }
+
+    @Override
+    public void notifyObservers() {
+        this.setChanged();
+        super.notifyObservers();
     }
 
 }

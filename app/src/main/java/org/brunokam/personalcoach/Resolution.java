@@ -1,9 +1,12 @@
 package org.brunokam.personalcoach;
 
+import android.content.Context;
+
 import java.io.Serializable;
 
 public class Resolution implements Serializable {
 
+    private Integer mID;
     private String mTitle;
     private String mDescription;
     private Integer mDifficulty;
@@ -11,7 +14,9 @@ public class Resolution implements Serializable {
     private Integer mStartTime;
     private Integer mLastSummaryTime;
 
-    public Resolution(String title, String description, Integer difficulty, Integer interval, Integer startTime, Integer lastSummary) {
+    // Constructs complete Resolution
+    public Resolution(Integer ID, String title, String description, Integer difficulty, Integer interval, Integer startTime, Integer lastSummary) {
+        this.mID = ID;
         this.mTitle = title;
         this.mDescription = description;
         this.mDifficulty = difficulty;
@@ -20,16 +25,28 @@ public class Resolution implements Serializable {
         this.mLastSummaryTime = lastSummary;
     }
 
-    public Resolution(String title, String description, Integer difficulty, Integer interval, Integer startTime) {
-        this(title, description, difficulty, interval, startTime, null);
+    // Constructs Resolution without lastSummary
+    public Resolution(Integer ID, String title, String description, Integer difficulty, Integer interval, Integer startTime) {
+        this(ID, title, description, difficulty, interval, startTime, null);
     }
 
-    public Resolution(String title, String description, Integer difficulty, Integer interval) {
-        this(title, description, difficulty, interval, null, null);
+    // Constructs Resolution without startTime and lastSummary
+    public Resolution(Integer ID, String title, String description, Integer difficulty, Integer interval) {
+        this(ID, title, description, difficulty, interval, null, null);
+    }
+
+    // Constructs Resolution based on resolution entry and ID
+    public Resolution(Integer ID, ResolutionEntry entry) {
+        this(ID, entry.getTitle(), entry.getDescription(), entry.getDifficulty(), entry.getInterval(),
+                entry.getStartTime(), entry.getLastSummaryTime());
+    }
+
+    public Integer getID() {
+        return this.mID;
     }
 
     public String getTitle() {
-        return mTitle;
+        return this.mTitle;
     }
 
     public void setTitle(String title) {
@@ -37,7 +54,7 @@ public class Resolution implements Serializable {
     }
 
     public String getDescription() {
-        return mDescription;
+        return this.mDescription;
     }
 
     public void setDescription(String description) {
@@ -45,7 +62,7 @@ public class Resolution implements Serializable {
     }
 
     public Integer getDifficulty() {
-        return mDifficulty;
+        return this.mDifficulty;
     }
 
     public void setDifficulty(Integer difficulty) {
@@ -53,7 +70,7 @@ public class Resolution implements Serializable {
     }
 
     public Integer getInterval() {
-        return mInterval;
+        return this.mInterval;
     }
 
     public void setInterval(Integer interval) {
@@ -61,7 +78,7 @@ public class Resolution implements Serializable {
     }
 
     public Integer getStartTime() {
-        return mStartTime;
+        return this.mStartTime;
     }
 
     public void setStartTime(Integer startTime) {
@@ -69,11 +86,24 @@ public class Resolution implements Serializable {
     }
 
     public Integer getLastSummaryTime() {
-        return mLastSummaryTime;
+        return this.mLastSummaryTime;
     }
 
     public void setLastSummaryTime(Integer lastSummary) {
         this.mLastSummaryTime = lastSummary;
+    }
+
+    @Override
+    public String toString() {
+        return "Resolution ["
+            + "ID=" + this.mID.toString() + ", "
+            + "title=\"" + this.mTitle + "\", "
+            + "description=\"" + this.mDescription + "\", "
+            + "difficulty=" + this.mDifficulty.toString() + ", "
+            + "interval=" + this.mInterval.toString() + ", "
+            + "startTime=" + (this.mStartTime != null ? this.mStartTime.toString() : "null") + ", "
+            + "lastSummaryTime=" + (this.mLastSummaryTime != null ? this.mLastSummaryTime.toString() : "null")
+            + "]";
     }
 
     public boolean isActive() {
@@ -92,15 +122,11 @@ public class Resolution implements Serializable {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Resolution [title=\"" + this.mTitle + "\""
-                + ", description=\"" + this.mDescription + "\""
-                + ", difficulty=" + this.mDifficulty.toString()
-                + ", interval=" + this.mInterval.toString()
-                + ", startTime=" + this.mStartTime.toString()
-                + ", lastSummaryTime=" + this.mLastSummaryTime.toString()
-                + "]";
+    public void start() {
+        int currentTime = (int) (System.currentTimeMillis() / 1000L);
+        this.mStartTime = Utils.roundTimestampToDay(currentTime);
+
+
     }
 
 }

@@ -1,18 +1,18 @@
 package org.brunokam.personalcoach;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
 public class AddResolutionFragment extends DialogFragment {
 
-    private AddResolutionFragmentListener mListener;
+    private static final String LOG_TAG = "AddResolutionFragment";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -27,7 +27,6 @@ public class AddResolutionFragment extends DialogFragment {
             .setPositiveButton(R.string.button_done, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    // Creates the resolution
                     String title, description;
                     Integer difficulty, interval;
 
@@ -36,34 +35,21 @@ public class AddResolutionFragment extends DialogFragment {
                     difficulty = ((SeekBar) getDialog().findViewById(R.id.seek_bar_difficulty)).getProgress();
                     interval = Integer.parseInt(((EditText) getDialog().findViewById(R.id.edit_text_interval)).getText().toString());
 
-                    Resolution resolution = new Resolution(title, description, difficulty, interval);
-                    mListener.onAddResolutionSuccess(AddResolutionFragment.this, resolution);
+                    // Creates the new resolution entry
+                    ResolutionEntry resolutionEntry = new ResolutionEntry(title, description, difficulty, interval);
+
+                    // Adds the resolution entry to the database
+                    ResolutionListDatabase.getInstance(getActivity()).add(resolutionEntry);
                 }
             })
             .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    mListener.onAddResolutionError(AddResolutionFragment.this);
+                    Log.d(LOG_TAG, "Canceled adding new resolution.");
                 }
             });
 
         return builder.create();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            this.mListener = (AddResolutionFragmentListener) activity;
-        } catch (final ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement AddResolutionFragmentListener");
-        }
-    }
-
-    public static interface AddResolutionFragmentListener {
-        public void onAddResolutionSuccess(DialogFragment dialog, Resolution resolution);
-        public void onAddResolutionError(DialogFragment dialog);
     }
 
 }

@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -45,42 +46,50 @@ public class ResolutionDetails extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initialiseActiveView() {
-        TextView titleView = (TextView) findViewById(R.id.text_view_title);
-        TextView descriptionView = (TextView) findViewById(R.id.text_view_description);
-        TextView difficultyView = (TextView) findViewById(R.id.text_view_difficulty_value);
-        TextView intervalView = (TextView) findViewById(R.id.text_view_interval_value);
+    private void updateActiveView() {
         TextView startedView = (TextView) findViewById(R.id.text_view_started_value);
         TextView upcomingSummaryView = (TextView) findViewById(R.id.text_view_upcoming_summary_value);
 
-        titleView.setText(this.mResolution.getTitle());
-        descriptionView.setText(this.mResolution.getDescription());
-        difficultyView.setText(this.mResolution.getDifficulty().toString());
-        intervalView.setText(this.mResolution.getInterval().toString());
         startedView.setText(Utils.formatTimestamp(this.mResolution.getStartTime()));
         upcomingSummaryView.setText(Utils.formatTimestamp(this.mResolution.getUpcomingSummaryTime()));
-    }
-
-    private void initialiseInctiveView() {
-        TextView titleView = (TextView) findViewById(R.id.text_view_title);
-        TextView descriptionView = (TextView) findViewById(R.id.text_view_description);
-        TextView difficultyView = (TextView) findViewById(R.id.text_view_difficulty_value);
-        TextView intervalView = (TextView) findViewById(R.id.text_view_interval_value);
-
-        titleView.setText(this.mResolution.getTitle());
-        descriptionView.setText(this.mResolution.getDescription());
-        difficultyView.setText(this.mResolution.getDifficulty().toString());
-        intervalView.setText(this.mResolution.getInterval().toString());
     }
 
     private void initialiseView() {
         if (this.mResolution.isActive()) {
             setContentView(R.layout.activity_resolution_details_active);
-            initialiseActiveView();
+            updateActiveView();
         } else {
             setContentView(R.layout.activity_resolution_details_inactive);
-            initialiseInctiveView();
         }
+
+        TextView titleView = (TextView) findViewById(R.id.text_view_title);
+        TextView descriptionView = (TextView) findViewById(R.id.text_view_description);
+        TextView difficultyView = (TextView) findViewById(R.id.text_view_difficulty_value);
+        TextView intervalView = (TextView) findViewById(R.id.text_view_interval_value);
+
+        titleView.setText(this.mResolution.getTitle());
+        descriptionView.setText(this.mResolution.getDescription());
+        difficultyView.setText(this.mResolution.getDifficulty().toString());
+        intervalView.setText(this.mResolution.getInterval().toString());
+    }
+
+    public void onStartResolutionClick(View view) {
+        this.mResolution.start();
+        ResolutionListDatabase.getInstance(this).update(this.mResolution);
+    }
+
+//    // TEMPORARY METHOD
+//    public void onDeactivateResolutionClick(View view) {
+//        this.mResolution.setStartTime(null);
+//        this.mResolution.setLastSummaryTime(null);
+//        ResolutionListDatabase.getInstance(this).update(this.mResolution);
+//        finish();
+//    }
+
+    // TEMPORARY METHOD
+    public void onDeleteResolutionClick(View view) {
+        ResolutionListDatabase.getInstance(this).delete(this.mResolution);
+        finish();
     }
 
 }

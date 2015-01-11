@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     // Shows ResolutionList activity
-    public void showResolutionListActivity(View v) {
+    public void onManageResolutionsClick(View v) {
         Intent intent = new Intent(this, ResolutionListActivity.class);
         startActivity(intent);
     }
