@@ -1,12 +1,10 @@
 package org.brunokam.personalcoach;
 
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +41,7 @@ public class ResolutionListActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Resolution resolution = (Resolution) parent.getAdapter().getItem(position);
 
-                Intent intent = new Intent(ResolutionListActivity.this, ResolutionDetails.class);
+                Intent intent = new Intent(ResolutionListActivity.this, ResolutionDetailsActivity.class);
                 intent.putExtra("resolution", resolution);
                 ResolutionListActivity.this.startActivity(intent);
             }
@@ -57,19 +55,17 @@ public class ResolutionListActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_resolution_list, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

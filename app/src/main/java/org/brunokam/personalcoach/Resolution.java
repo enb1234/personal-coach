@@ -1,10 +1,14 @@
 package org.brunokam.personalcoach;
 
-import android.content.Context;
+import android.util.Log;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Resolution implements Serializable {
+
+    private static final String LOG_TAG = "Resolution";
 
     private Integer mID;
     private String mTitle;
@@ -96,37 +100,74 @@ public class Resolution implements Serializable {
     @Override
     public String toString() {
         return "Resolution ["
-            + "ID=" + this.mID.toString() + ", "
-            + "title=\"" + this.mTitle + "\", "
-            + "description=\"" + this.mDescription + "\", "
-            + "difficulty=" + this.mDifficulty.toString() + ", "
-            + "interval=" + this.mInterval.toString() + ", "
-            + "startTime=" + (this.mStartTime != null ? this.mStartTime.toString() : "null") + ", "
-            + "lastSummaryTime=" + (this.mLastSummaryTime != null ? this.mLastSummaryTime.toString() : "null")
+            + "ID=" + this.getID().toString() + ", "
+            + "title=\"" + this.getTitle() + "\", "
+            + "description=\"" + this.getDescription() + "\", "
+            + "difficulty=" + this.getDifficulty().toString() + ", "
+            + "interval=" + this.getInterval().toString() + ", "
+            + "startTime=" + (this.getStartTime() != null ? this.getStartTime().toString() : "null") + ", "
+            + "lastSummaryTime=" + (this.getLastSummaryTime() != null ? this.getLastSummaryTime().toString() : "null")
             + "]";
     }
 
     public boolean isActive() {
-        return this.mStartTime != null && this.mStartTime != 0;
+        return this.getStartTime() != null && this.getStartTime() != 0;
+    }
+
+    public boolean isSummaryTimeToday() {
+        if (this.isActive()) {
+            int intervalSeconds = this.getInterval() * 24 * 3600;
+            int todayTimestamp = Extras.roundTimestampToDay((int) (System.currentTimeMillis() / 1000L));
+            int baseStartTime = this.getStartTime();
+
+            int delta = todayTimestamp - baseStartTime;
+
+            if (delta < 0) {
+                delta = 0;
+            }
+
+            double cycle = delta / (double) intervalSeconds;
+
+            return Double.compare(cycle, Math.floor(cycle)) == 0;
+        }
+
+        return false;
     }
 
     public Integer getUpcomingSummaryTime() {
         if (this.isActive()) {
-            Integer intervalSeconds = this.mInterval * 24 * 3600;
-            Integer currentTimestamp = (int) (System.currentTimeMillis() / 1000L);
-            Integer cycle = (int) Math.floor((currentTimestamp - this.mStartTime) / intervalSeconds);
+            Calendar dailySummaryTime = User.getInstance().getDailySummaryTime();
+            Integer summaryHour = dailySummaryTime.get(Calendar.HOUR_OF_DAY);
+            Integer summaryMinute = dailySummaryTime.get(Calendar.MINUTE);
+            Log.i(LOG_TAG, summaryHour.toString() + ":" + summaryMinute.toString());
 
-            return this.mStartTime + intervalSeconds * (cycle + 1);
-        } else {
-            return null;
+            int intervalSeconds = this.getInterval() * 24 * 3600;
+            int currentTimestamp = (int) (System.currentTimeMillis() / 1000L);
+            int baseStartTime = this.getStartTime() + (summaryHour * 3600) + (summaryMinute * 60);
+
+            int delta = currentTimestamp - baseStartTime;
+
+            if (delta < 0) {
+                delta = 0;
+            }
+
+            int cycle = (int) Math.floor(delta / (double) intervalSeconds) + 1;
+
+            int summaryTime = baseStartTime + (intervalSeconds * cycle);
+
+            if (summaryTime < currentTimestamp) {
+                summaryTime += intervalSeconds;
+            }
+
+            return summaryTime;
         }
+
+        return null;
     }
 
     public void start() {
         int currentTime = (int) (System.currentTimeMillis() / 1000L);
-        this.mStartTime = Utils.roundTimestampToDay(currentTime);
-
-
+        this.setStartTime(Extras.roundTimestampToDay(currentTime));
     }
 
 }

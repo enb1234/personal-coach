@@ -39,7 +39,7 @@ public class AddResolutionFragment extends DialogFragment {
                     ResolutionEntry resolutionEntry = new ResolutionEntry(title, description, difficulty, interval);
 
                     // Adds the resolution entry to the database
-                    ResolutionListDatabase.getInstance(getActivity()).add(resolutionEntry);
+                    ResolutionDatabase.getInstance(getActivity()).add(resolutionEntry);
                 }
             })
             .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {

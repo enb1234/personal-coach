@@ -191,23 +191,47 @@
         android:layout_alignLeft="@id/layout_upcoming_summary"
         android:layout_alignStart="@id/layout_upcoming_summary">
 
-        <!--
         <Button
-            android:id="@+id/button_deactivate_resolution"
-            android:text="Deactivate"
-            android:onClick="onDeactivateResolutionClick"
+            android:id="@+id/button_view_summaries"
+            android:text="@string/resolution_details_view_summaries"
+            android:onClick="onViewSummariesClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp" />
-        -->
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp" />
 
         <!-- TEMPORARY BUTTON -->
         <Button
             android:id="@+id/button_delete_resolution"
-            android:text="Delete"
+            android:text="Delete [dev]"
             android:onClick="onDeleteResolutionClick"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button_view_summaries"
+            android:layout_toEndOf="@id/button_view_summaries"
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp" />
 
+        <!-- TEMPORARY BUTTON -->
+        <Button
+            android:id="@+id/button_stop_resolution"
+            android:text="Stop [dev]"
+            android:onClick="onStopResolutionClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button_delete_resolution"
+            android:layout_toEndOf="@id/button_delete_resolution"
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp" />
+
+        <!-- TEMPORARY BUTTON -->
+        <Button
+            android:id="@+id/button_speedup_resolution"
+            android:text="Speed up [dev]"
+            android:onClick="onSpeedupResolutionClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button_stop_resolution"
+            android:layout_toEndOf="@id/button_stop_resolution" />
     </RelativeLayout>
 </RelativeLayout>

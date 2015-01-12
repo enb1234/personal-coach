@@ -58,7 +58,7 @@ public class ResolutionEntry implements Serializable {
 
     @Override
     public String toString() {
-        return "Resolution ["
+        return "ResolutionEntry ["
             + "title=\"" + this.mTitle + "\", "
             + "description=\"" + this.mDescription + "\", "
             + "difficulty=" + this.mDifficulty.toString() + ", "

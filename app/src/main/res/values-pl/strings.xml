@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Personal Coach</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Ustawienia</string>
+
+    <!-- Global -->
+    <string name="button_ok">OK</string>
+    <string name="button_done">Gotowe</string>
+    <string name="button_set">Ustaw</string>
+    <string name="button_cancel">Anuluj</string>
+
+    <!-- Date formats -->
+    <string name="date_format_today">\'dzisiaj\'</string>
+    <string name="date_format_tomorrow">\'jutro\'</string>
+    <string name="date_format_week">EEEE</string>
+    <string name="date_format_long">d MMM yyyy</string>
+
+    <!-- Notifications -->
+    <string name="notification_summary_text">Uzupełnij podsumowanie</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="settings_header_general">Główne</string>
+    <string name="settings_daily_summary_time">Dzienny termin podsumowań</string>
+    <string name="settings_daily_summary_time_details">
+        Personal Coach poinformuje Cię o nowych podsumowaniach tylko o tej porze.
+    </string>
+
+    <!-- Main activity -->
+    <string name="main_manage_resolutions_button">Zarządzaj postanowieniami</string>
+    <string name="main_score_label">Wynik</string>
+
+    <!-- ResolutionList activity -->
+    <string name="title_activity_resolution_list">Zarządzaj postanowieniami</string>
+    <string name="resolution_list_add_resolution_button">Dodaj postanowienie</string>
+
+    <!-- ResolutionList item -->
+    <string name="resolution_item_difficulty_label">Trudność</string>
+    <string name="resolution_item_upcoming_summary_label">Nadchodzące podsumowanie</string>
+
+    <!-- AddResolution fragment -->
+    <string name="title_fragment_add_resolution">Dodaj postanowienie</string>
+    <string name="add_resolution_title">Tytuł</string>
+    <string name="add_resolution_description">Opis</string>
+    <string name="add_resolution_difficulty">Trudność</string>
+    <string name="add_resolution_interval_label">Interwał w dniach</string>
+
+    <!-- ResolutionDetailsActivity activity -->
+    <string name="title_activity_resolution_details">Szczegóły postanowienia</string>
+    <string name="resolution_details_difficulty_label">Trudność</string>
+    <string name="resolution_details_interval_label">Interwał</string>
+    <string name="resolution_details_interval_ending">dni</string>
+    <string name="resolution_details_started_label">Rozpoczęto</string>
+    <string name="resolution_details_upcoming_summary_label">Nadchodzące podsumowanie</string>
+    <string name="resolution_details_start_resolution">Start</string>
+    <string name="resolution_details_view_summaries">Zobacz podsumowania</string>
+
+    <!-- AddSummary fragment -->
+    <string name="title_activity_add_summary">Dodaj podsumowanie</string>
+    <string name="add_summary_description">Opis</string>
+    <string name="add_summary_progress">Postęp</string>
+    <string name="add_summary_real_difficulty">Realna trudność</string>
+
+    <!-- SummaryList activity -->
+    <string name="title_activity_summary_list">Lista podsumowań</string>
+
+    <!-- SummaryList item -->
+    <string name="summary_item_real_difficulty_label">Realna trudność</string>
+    <string name="summary_item_real_difficulty_ending">/10</string>
+    <string name="summary_item_progress_label">Postęp</string>
+
+</resources>

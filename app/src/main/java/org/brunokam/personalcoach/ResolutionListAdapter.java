@@ -4,7 +4,6 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ public class ResolutionListAdapter extends ArrayAdapter<Resolution> implements L
 
     private static final String LOG_TAG = "ResolutionListAdapter";
 
-    private ResolutionListDatabase mDbHelper;
+    private ResolutionDatabase mDbHelper;
 
     public ResolutionListAdapter(Context context, ArrayList<Resolution> resolutionList) {
         super(context, 0, resolutionList);
@@ -60,7 +59,7 @@ public class ResolutionListAdapter extends ArrayAdapter<Resolution> implements L
     private View getActiveItemView(Resolution resolution, View view) {
         // Gets upcoming summary
         int upcomingSummaryTime = resolution.getUpcomingSummaryTime();
-        String upcomingSummaryDate = Utils.formatDate(new Date(upcomingSummaryTime * 1000L));
+        String upcomingSummaryDate = Extras.formatDate(new Date(upcomingSummaryTime * 1000L));
 
         TextView titleView = (TextView) view.findViewById(R.id.text_view_title);
         TextView descriptionView = (TextView) view.findViewById(R.id.text_view_description);

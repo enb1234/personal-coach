@@ -1,6 +1,7 @@
 package org.brunokam.personalcoach;
 
 import android.app.Activity;
+import android.util.Log;
 
 import org.apache.http.impl.cookie.DateUtils;
 
@@ -8,8 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
-public class Utils {
+public class Extras {
+
+    private static String LOG_TAG = "Extras";
+
     private static Activity mActivity;
 
     public static void initialise(Activity activity) {
@@ -17,16 +22,21 @@ public class Utils {
     }
 
     public static String formatDate(Date date) {
+        long daySeconds = 24 * 3600;
         long weekSeconds = 7 * 24 * 3600;
 
         long currentTimestamp = System.currentTimeMillis() / 1000L;
         long dateTimestamp = date.getTime() / 1000L;
-        long delta = dateTimestamp - currentTimestamp;
+        long deltaRounded = roundTimestampToDay(dateTimestamp) - roundTimestampToDay(currentTimestamp);
 
         String dateFormat;
 
-        if (dateTimestamp > currentTimestamp) {
-            if (delta <= weekSeconds) {
+        if (roundTimestampToDay(dateTimestamp) >= roundTimestampToDay(currentTimestamp)) {
+            if (deltaRounded == 0) {
+                dateFormat = mActivity.getResources().getString(R.string.date_format_today);
+            } else if (deltaRounded == daySeconds) {
+                dateFormat = mActivity.getResources().getString(R.string.date_format_tomorrow);
+            } else if (deltaRounded <= weekSeconds) {
                 dateFormat = mActivity.getResources().getString(R.string.date_format_week);
             } else {
                 dateFormat = mActivity.getResources().getString(R.string.date_format_long);
@@ -35,15 +45,15 @@ public class Utils {
             dateFormat = mActivity.getResources().getString(R.string.date_format_long);
         }
 
-        return new SimpleDateFormat(dateFormat).format(date);
+        return new SimpleDateFormat(dateFormat, Locale.getDefault()).format(date);
     }
 
     public static String formatTimestamp(long timestamp) {
-        return Utils.formatDate(new Date(timestamp * 1000L));
+        return formatDate(new Date(timestamp * 1000L));
     }
 
     public static String formatTimestamp(int timestamp) {
-        return Utils.formatTimestamp((long) timestamp);
+        return formatTimestamp((long) timestamp);
     }
 
     public static long roundTimestampToDay(long timestamp) {
@@ -60,6 +70,7 @@ public class Utils {
     }
 
     public static int roundTimestampToDay(int timestamp) {
-        return (int) Utils.roundTimestampToDay((long) timestamp);
+        return (int) roundTimestampToDay((long) timestamp);
     }
+
 }

@@ -13,6 +13,23 @@
 
 
 
+    <!-- Main activity -->
+    <style name="AppTheme.Main"> </style>
+    <style name="AppTheme.Main.Attribute"> </style>
+    <style name="AppTheme.Main.Attribute.TextView"> </style>
+
+    <style name="AppTheme.Main.Attribute.TextView.Label" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="AppTheme.Main.Attribute.TextView.Value">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+
+
     <!-- ResolutionList item -->
     <style name="AppTheme.ResolutionItem"> </style>
     <style name="AppTheme.ResolutionItem.Active"> </style>
@@ -94,7 +111,25 @@
 
 
 
-    <!-- ResolutionDetails activity -->
+    <!-- AddSummary fragment -->
+    <style name="AppTheme.AddSummary"> </style>
+    <style name="AppTheme.AddSummary.EditText"> </style>
+    <style name="AppTheme.AddSummary.SeekBar"> </style>
+
+    <style name="AppTheme.AddSummary.EditText.Description" parent="AppTheme.AddResolution.EditText.Description"> </style>
+
+    <style name="AppTheme.AddSummary.TextView" parent="AppTheme.TextView"> </style>
+
+    <style name="AppTheme.AddSummary.SeekBar.Progress">
+        <item name="android:max">@integer/resolution_difficulty_max</item>
+        <item name="android:progress">5</item>
+    </style>
+
+    <style name="AppTheme.AddSummary.SeekBar.RealDifficulty" parent="AppTheme.AddResolution.SeekBar.Difficulty"> </style>
+
+
+
+    <!-- ResolutionDetailsActivity activity -->
     <style name="AppTheme.ResolutionDetails"> </style>
     <style name="AppTheme.ResolutionDetails.Active"> </style>
     <style name="AppTheme.ResolutionDetails.Active.TextView"> </style>

@@ -2,7 +2,6 @@ package org.brunokam.personalcoach;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -22,7 +21,7 @@ public class ResolutionListLoader extends AsyncTaskLoader<ArrayList<Resolution>>
 
     @Override
     public ArrayList<Resolution> loadInBackground() {
-        return ResolutionListDatabase.getInstance(getContext()).all();
+        return ResolutionDatabase.getInstance(getContext()).all();
     }
 
     @Override
@@ -48,7 +47,7 @@ public class ResolutionListLoader extends AsyncTaskLoader<ArrayList<Resolution>>
         }
 
         if (!this.isRegistered) {
-            ResolutionListDatabase.getInstance(getContext()).addObserver(this);
+            ResolutionDatabase.getInstance(getContext()).addObserver(this);
             this.isRegistered = true;
         }
 

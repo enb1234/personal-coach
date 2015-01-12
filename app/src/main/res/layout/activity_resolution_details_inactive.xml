@@ -139,13 +139,13 @@
             android:onClick="onStartResolutionClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:layout_marginEnd="6dp" />
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp" />
 
         <!-- TEMPORARY BUTTON -->
         <Button
             android:id="@+id/button_delete_resolution"
-            android:text="Delete"
+            android:text="Delete [dev]"
             android:onClick="onDeleteResolutionClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
         <TextView
             android:id="@+id/text_view_started_label"
             android:text="@string/resolution_details_started_label"
-            style="@style/AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Label"
+            style="@style/AppTheme.ResolutionDetailsActivity.Inactive.Attribute.TextView.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -176,7 +176,7 @@
         <TextView
             android:id="@+id/text_view_started_value"
             android:text="Wed, 31 Dec 2014"
-            style="@style/AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Value"
+            style="@style/AppTheme.ResolutionDetailsActivity.Inactive.Attribute.TextView.Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/text_view_started_label"
@@ -196,7 +196,7 @@
         <TextView
             android:id="@+id/text_view_upcoming_summary_label"
             android:text="@string/resolution_details_upcoming_summary_label"
-            style="@style/AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Label"
+            style="@style/AppTheme.ResolutionDetailsActivity.Inactive.Attribute.TextView.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -206,7 +206,7 @@
         <TextView
             android:id="@+id/text_view_upcoming_summary_value"
             android:text="Wed, 31 Dec 2014"
-            style="@style/AppTheme.ResolutionDetails.Inactive.Attribute.TextView.Value"
+            style="@style/AppTheme.ResolutionDetailsActivity.Inactive.Attribute.TextView.Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/text_view_upcoming_summary_label"
