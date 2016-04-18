@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.brunokam.personalcoach" >
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,6 +18,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".ResolutionListActivity"
+            android:label="@string/title_activity_resolution_list" >
+        </activity>
+        <activity
+            android:name=".ResolutionDetailsActivity"
+            android:label="@string/title_activity_resolution_details" >
+        </activity>
+        <activity
+            android:name=".AddSummaryActivity"
+            android:label="@string/title_activity_add_summary" >
+        </activity>
+        <activity
+            android:name=".SummaryListActivity"
+            android:label="@string/title_activity_summary_list" >
+        </activity>
+
+        <receiver
+            android:name=".SummaryBroadcastReceiver"
+            android:enabled="true" />
     </application>
 
 </manifest>

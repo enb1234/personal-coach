@@ -1,5 +1,14 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- Global -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- ResolutionList item -->
+    <dimen name="resolution_item_horizontal_margin">10dp</dimen>
+    <dimen name="resolution_item_vertical_margin">10dp</dimen>
+
+    <!-- AddResolution fragment -->
+    <dimen name="add_resolution_interval_width">48dp</dimen>
+
 </resources>

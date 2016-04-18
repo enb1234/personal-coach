@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/resolution_item_horizontal_margin"
+    android:paddingRight="@dimen/resolution_item_horizontal_margin"
+    android:paddingTop="@dimen/resolution_item_vertical_margin"
+    android:paddingBottom="@dimen/resolution_item_vertical_margin">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_texts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:text="Sample date"
+            style="@style/AppTheme.ResolutionItem.Active.TextView.Title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_view_description"
+            android:text="Sample description"
+            style="@style/AppTheme.ResolutionItem.Active.TextView.Description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_date"
+            android:layout_alignLeft="@id/text_view_date"
+            android:layout_alignStart="@id/text_view_date"
+            android:layout_alignRight="@id/text_view_date"
+            android:layout_alignEnd="@id/text_view_date" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_progress"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_texts"
+        android:layout_alignLeft="@id/layout_texts"
+        android:layout_alignStart="@id/layout_texts"
+        android:layout_marginRight="32dp"
+        android:layout_marginEnd="32dp">
+
+        <TextView
+            android:id="@+id/text_view_progress_label"
+            android:text="@string/summary_item_progress_label"
+            style="@style/AppTheme.ResolutionItem.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_progress_value"
+            android:text="3"
+            style="@style/AppTheme.ResolutionItem.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_progress_label"
+            android:layout_toEndOf="@id/text_view_progress_label" />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_real_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_texts"
+        android:layout_alignTop="@id/layout_progress"
+        android:layout_toRightOf="@id/layout_progress"
+        android:layout_toEndOf="@id/layout_progress">
+
+        <TextView
+            android:id="@+id/text_view_real_difficulty_label"
+            android:text="@string/summary_item_real_difficulty_label"
+            style="@style/AppTheme.ResolutionItem.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/text_view_real_difficulty_value"
+            android:text="X"
+            style="@style/AppTheme.ResolutionItem.Active.Attribute.TextView.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_view_real_difficulty_label"
+            android:layout_toEndOf="@id/text_view_real_difficulty_label"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp" />
+
+        <TextView
+            android:id="@+id/text_view_interval_ending"
+            android:text="@string/summary_item_real_difficulty_ending"
+            style="@style/AppTheme.ResolutionItem.Active.Attribute.TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/text_view_real_difficulty_value"
+            android:layout_toEndOf="@id/text_view_real_difficulty_value" />
+    </RelativeLayout>
+</RelativeLayout>

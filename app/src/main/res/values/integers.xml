@@ -1,0 +1,6 @@
+<resources>
+
+    <integer name="resolution_description_max_length">100</integer>
+    <integer name="resolution_difficulty_max">10</integer>
+
+</resources>
